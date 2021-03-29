@@ -1,0 +1,80 @@
+body {
+    background-color: rgb(233, 225, 210);
+}
+
+div#container {
+    text-align: center;
+}
+
+.bouncy{
+    animation: bouncy 5s infinite linear;
+    position:relative;
+    color: white;
+    background-color: rgb(74, 151, 240);
+    font-size: 16px;
+    padding: 12px 28px;
+    border-radius: 12px;
+    border: 0;
+    margin-top: 15px;
+}
+
+@keyframes bouncy {
+    0%  {top:0em;}
+    40% {top:0em;}
+    43% {top:-0.9em;}
+    46% {top:0em;}
+    48% {top:-0.4em;}
+    50% {top:0em;}
+    100% {top:0em;}
+}
+
+div.numbers, div.sortedNumbers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(170, 170, 170);
+    border-radius: 50%;
+}
+
+div#board, div#sortedNums {
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    display: flex;
+    width: 700px;
+    flex-flow: row wrap;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    border: 1px solid black;
+}
+
+div#board {
+    height: 420px;
+}
+
+div#sortedNums {
+    height: 100px;
+}
+
+@media (max-width: 950px) {
+    div.numbers {
+        margin: 5px;
+    }
+
+    div#board {
+        width: 600px;
+    }
+}
+
+@media (max-width: 650px) {
+    div.numbers {
+        margin: 2px;
+    }
+
+    div#board {
+        width: 550px;
+    }
+}
