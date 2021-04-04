@@ -1,3 +1,5 @@
+let lastSelect = true;
+
 // Functionalities
 function removeItemOnce(arr, value) {
     var index = arr.indexOf(value);
@@ -34,9 +36,11 @@ function choiceElems(arr, num) {
 
 // Lottery Numbers
 
+const lotteryLength = 60;
+
 let lotteryNums = [];
 
-for (i = 1; i <= 60; i++) {
+for (i = 1; i <= lotteryLength; i++) {
     lotteryNums.push(i);
 
     const number = document.createElement('div');
@@ -51,7 +55,9 @@ for (i = 1; i <= 60; i++) {
     document.getElementById('board').appendChild(number);
 }
 
-for (i = 1; i <= 6; i++) {
+const sortedNumsLength = 6;
+
+for (i = 1; i <= sortedNumsLength; i++) {
     const sortedNumber = document.createElement('div');
     sortedNumber.className = 'sortedNumbers';
     sortedNumber.setAttribute('id', `sortedNum${i}`);
@@ -62,24 +68,26 @@ for (i = 1; i <= 6; i++) {
 
 // Check selection of Lottery Numbers
 
-let selectNums = [];
+let selectedNums = [];
 
 function selectNumber(evt) {
+    lastSelect = false;
+
     let numberElem = document.getElementById(evt.currentTarget.id);
     let number = Number(numberElem.innerText);
 
     if (!(numberElem.style.color === 'white')) {
-        selectNums.push(number);
+        selectedNums.push(number);
 
         numberElem.style.backgroundColor = 'red';
         numberElem.style.color = 'white';
 
         // console.log(`You selected the number ${number}.`)
     } else {
-        removeItemOnce(selectNums, number)
+        removeItemOnce(selectedNums, number)
 
-        numberElem.style.backgroundColor = 'rgb(170, 170, 170)';
-        numberElem.style.color = 'black';
+        numberElem.style.backgroundColor = '';
+        numberElem.style.color = '';
 
         // console.log(`You unselected the number ${number}.`)
     }
@@ -94,92 +102,134 @@ sortedLotteryNums = [];
 
 let divMsgSpan = document.querySelector('div#msg span');
 
+let validSelect = true;
+
 function play() {
-    if (selectNums.length >= 6) {
-        // let containerDiv = document.querySelector('div#container');
-        sortedLotteryNums = choiceElems(arr = lotteryNums, num = 6);
+    if (lastSelect) {
+        buttonSelect.click()
+    }
 
-        sortedLotteryNums.forEach((item, index) => {
-            let sortedNumDiv = document.querySelector(`div#sortedNums div#sortedNum${index + 1}`);
-            sortedNumDiv.innerText = item;
-        })
-
-        if (!(checker(selectNums, sortedLotteryNums))) {
-            divMsgSpan.innerText = "You lost buddy. Don't feel bad, winners are persistent!"
+    if (validSelect) {
+        if (selectedNums.length >= sortedNumsLength) {
+            // let containerDiv = document.querySelector('div#container');
+            sortedLotteryNums = choiceElems(arr = lotteryNums, num = sortedNumsLength);
+    
+            sortedLotteryNums.forEach((item, index) => {
+                let sortedNumDiv = document.querySelector(`div#sortedNums div#sortedNum${index + 1}`);
+                sortedNumDiv.innerText = item;
+            })
+    
+            if (!(checker(selectedNums, sortedLotteryNums))) {
+                divMsgSpan.innerText = "You lost. 🙁"
+            } else {
+                divMsgSpan.innerText = 'You won the jackpot! Congratulations! 🎉'
+                confetti.start(timeout=5000, min=100, max=200);
+            }
+    
+            // console.log(sortedLotteryNums);
+            // console.log(selectedNums);
+    
+            // const sortedNums = document.createElement('div');
+            // sortedNums.setAttribute('id', 'sortedNums');
+    
+            // containerDiv.insertBefore(sortedNums, playButton);
         } else {
-            divMsgSpan.innerText = 'You won the JACKPOTTTTTTT!!!!!!!! CONGRATSSSSSSSS!'
+            window.alert(`Invalid quantity of numbers selected. Minimum is ${sortedNumsLength}!`);
+            return null;
         }
+    }
+}
 
-        // console.log(sortedLotteryNums);
-        // console.log(selectNums);
 
-        // const sortedNums = document.createElement('div');
-        // sortedNums.setAttribute('id', 'sortedNums');
+// Select Values input
 
-        // containerDiv.insertBefore(sortedNums, playButton);   
+let valuesInput = document.querySelector('input#values');
+valuesInput.value = sortedNumsLength;
+// valuesInput.addEventListener('click', selectNums);
+
+const selectDiv = document.querySelector('div#select').addEventListener('click', () => {
+    lastSelect = true;
+})
+
+let buttonSelect = document.querySelector('button#select-values')
+buttonSelect.addEventListener('click', selectNums)
+
+// for (i=sortedNumsLength; i <= lotteryLength; i++) {
+//     selectButton.innerHTML += `<option value="${i}">Select ${i} values</option>`;
+// }
+
+let playClear = false;
+
+function selectNums() {
+    let selectValue = valuesInput.value;
+
+    if (selectValue) {
+        let selectNum = Number(selectValue)
+        if (selectNum >= 1 && selectNum <= lotteryLength) {
+
+            // Gambiarra (`-`) {
+            playClear = true;
+            clearGame()
+            playClear = false;
+            // }
+
+            if (selectNum < lotteryLength) {
+                let sortedLotteryNumsUser = choiceElems(arr = lotteryNums, num = selectNum);
+
+                sortedLotteryNumsUser.forEach((item) => {
+                    // console.log(item);
+                    const numElem = document.querySelector(`div#board div#num${item}`);
+                    numElem.click();
+                })
+            } else { // if (selectNum === lotteryLength)
+                // console.log('got sixty')
+                for (i = 1; i <= lotteryLength; i++) {
+                    const number = document.getElementById(`num${i}`);
+                    let numElemBgColor = number.style.backgroundColor;
+
+                    if (numElemBgColor === 'rgb(170, 170, 170)' || !(numElemBgColor)) {
+                        // console.log('inner if else')
+                        number.click();
+                    }
+                }
+            }
+            validSelect = true;
+        } else {
+            alert(`Invalid number. It should be between 1 and ${lotteryLength}.`)
+            validSelect = false
+        }
     } else {
-        window.alert('Invalid quantity of numbers selected. Minimum is six!');
-        return null;
+        alert('You should enter a number.')
+        validSelect = false
     }
 }
 
 
-// Generate Button
+// Clear Button
+let clearButton = document.querySelector('button#clear')
+clearButton.addEventListener('click', clearGame)
 
-let generateSelect = document.querySelector('select#generate');
-generateSelect.addEventListener('click', generate);
-
-for (i=6; i <= 60; i++) {
-    generateSelect.innerHTML += `<option value="${i}">Select ${i} values</option>`;
-}
-
-function generate() {
-    if (selectNums.length) {
-        allButton.click();
-    }
-
-    let selectNum = Number(generateSelect.value);
-
-    let sortedLotteryNumsUser = choiceElems(arr = lotteryNums, num = selectNum);
-
-    sortedLotteryNumsUser.forEach((item) => {
-        // console.log(item);
-        let numElem = document.querySelector(`div#board div#num${item}`);
-        numElem.click();
-    })
-}
-
-
-// Select/Unselect All Button
-let allButton = document.querySelector('button#selectUnselect')
-allButton.addEventListener('click', selectUnselectAll)
-
-function selectUnselectAll() {
-    // console.log(selectNums)
-    // console.log(selectNums.length);
-    if (selectNums.length) {
-        for (i = 1; i <= 60; i++) {
+function clearGame() {
+    if (selectedNums.length) {
+        // console.log('cleaned')
+        for (i = 1; i <= lotteryLength; i++) {
             const number = document.getElementById(`num${i}`);
             // console.log(number.style.backgroundColor)
             if (number.style.backgroundColor === 'red') {
                 number.click();
             }
         }
-    } else {
-        for (i = 1; i <= 60; i++) {
-            const number = document.getElementById(`num${i}`);
-            let numElemBgColor = number.style.backgroundColor;
-
-            if (numElemBgColor === 'rgb(170, 170, 170)' || !(numElemBgColor)) {
-                // console.log('inner if else')
-                number.click();
-            }
-        }
     }
 
-    for (i = 1; i <= 6; i++) {
+    for (i = 1; i <= sortedNumsLength; i++) {
         const sortedNum = document.getElementById(`sortedNum${i}`);
         sortedNum.innerText = '';
+    }
+
+    if (!playClear) {
+        divMsgSpan.innerText = '';
+        lastSelect = true;
+        valuesInput.value = sortedNumsLength;
     }
 }
 

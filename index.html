@@ -22,12 +22,20 @@
             </span>
         </div>
 
-        <button class="bouncy skewBtn blue" id="play">Play</button>
-        <select class="bouncy skewBtn blue" id="generate" name="generate">
-            <option value="">Generate Game</option>
-        </select>
-        <button class="bouncy skewBtn blue" id="selectUnselect">Select / Unselect All</button>
+        <div id="buttons">
+            <button class="bouncy skewBtn blue" id="play">Play</button>
+            <div id="select">
+                <button id="select-values">Select Values</button>
+                <input id="values" type="number" min="5" max="60">
+            </div>
+
+            <!-- <select class="bouncy skewBtn blue" id="select-nums" name="select-nums">
+                <option value="">Select Values</option>
+            </select> -->
+            <button class="bouncy skewBtn blue" id="clear">Clear</button>
+        </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/gh/emanoeldelfino/confetti.js/confetti.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,3 +1,11 @@
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
 body {
     background-color: rgb(233, 225, 210);
 }
@@ -6,16 +14,52 @@ div#container {
     text-align: center;
 }
 
-.bouncy{
-    animation: bouncy 5s infinite linear;
-    position:relative;
-    color: white;
+.bouncy, div#select, input#values, button#select-values {
     background-color: rgb(74, 151, 240);
+    border: 0;
+    color: white;
+    position:relative;
+    font-family: arial;
     font-size: 16px;
+}
+
+.bouncy, div#select {
+    margin-top: 15px;
+}
+
+input#values:focus, button#select-values:focus {
+    outline: none; 
+    border: solid 1px white;
+    border-radius: 3px;
+    padding: 4px;
+    /* outline: solid 1px white; */
+}
+
+input[type="number"] {
+    text-align:center;
+}
+
+div#select {
+    margin-right: 3px;
+}
+
+.bouncy, div#select {
+    animation: bouncy 5s infinite linear;
     padding: 12px 28px;
     border-radius: 12px;
-    border: 0;
-    margin-top: 15px;
+}
+
+/* Remove arrows from input number */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 @keyframes bouncy {
@@ -44,7 +88,7 @@ div#board, div#sortedNums {
     justify-content: center;
     padding: 15px;
     display: flex;
-    width: 700px;
+    width: 750px;
     flex-flow: row wrap;
     margin: 0 auto;
     margin-bottom: 10px;
@@ -52,29 +96,93 @@ div#board, div#sortedNums {
 }
 
 div#board {
-    height: 420px;
+    height: 500px;
 }
 
 div#sortedNums {
     height: 100px;
 }
 
+div#msg span {
+    font-size: 25px;
+}
+
+div#select {
+    display: inline;
+}
+
 @media (max-width: 950px) {
-    div.numbers {
+    div.numbers, div.sortedNumbers {
         margin: 5px;
     }
 
-    div#board {
-        width: 600px;
+    div#board, div#sortedNums {
+        width: 650px;
     }
 }
 
 @media (max-width: 650px) {
-    div.numbers {
-        margin: 2px;
+    div.numbers, div.sortedNumbers {
+        margin: 10px;
     }
 
-    div#board {
-        width: 550px;
+    div#board, div#sortedNums {
+        width: 85%;
+        height: 100%;
+    }
+
+    .bouncy, div#select {
+        width: 50%;
+    }
+
+    /* div#select {
+        width: 30%;
+        height: 30px;
+    } */
+
+    div#buttons, div#select {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    div#buttons {
+        flex-flow: column wrap;
+    }
+}
+
+@media (max-width: 550px) {
+    .bouncy, div#select {
+        width: 100%;
+    }
+    
+    div#sortedNums {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-gap: 20px;
+        /* align-items: center; */
+        /* text-align: center; */
+        /* justify-content: center; */
+        justify-items: center;
+    }
+
+}
+
+@media (max-width: 315px) {
+    div#board, div#sortedNums {
+        width: 75%;
+    }
+
+    div#sortedNums {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-gap: 10px;
+    }
+}
+
+@media (max-width: 225px) {
+    div#sortedNums {
+        grid-template-columns: 1fr;
     }
 }
