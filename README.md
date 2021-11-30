@@ -1,17 +1,17 @@
 # Lottery Draw
 
-![Gif of the minigame](https://github.com/emanoeldelfino/lotteryDraw/blob/master/demo.gif)
+![Gif of the minigame](https://github.com/emanoeldelfino/lotteryDraw/blob/main/demo.gif)
 
 <p align="center">
     <img
         alt="Mobile image 1"
         align="center"
-        src="https://github.com/emanoeldelfino/lotteryDraw/blob/master/mobile1.png"
+        src="https://github.com/emanoeldelfino/lotteryDraw/blob/main/mobile1.png"
     >
     <img
         alt="Mobile image 2"
         align="center"
-        src="https://github.com/emanoeldelfino/lotteryDraw/blob/master/mobile2.png"
+        src="https://github.com/emanoeldelfino/lotteryDraw/blob/main/mobile2.png"
     >
 <p>
 
