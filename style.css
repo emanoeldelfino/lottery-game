@@ -103,6 +103,10 @@ div#sortedNums {
     height: 100px;
 }
 
+div#msg {
+    margin-top: 15px;
+}
+
 div#msg span {
     font-size: 25px;
 }
