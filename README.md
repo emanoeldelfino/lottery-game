@@ -15,6 +15,6 @@
     >
 <p>
 
-- Check the live minigame [here](https://emanoeldelfino.github.io/lotteryDraw/).
+- Check the live minigame [here](https://emanoeldelfino.github.io/lotterygame/).
 - Inspired by a [video](https://www.youtube.com/watch?v=3nuC0eX35bU) of a lottery minigame.
 
