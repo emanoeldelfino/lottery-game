@@ -1,4 +1,4 @@
-# Lottery Draw
+# Lottery Game
 
 ![Gif of the minigame](https://github.com/emanoeldelfino/lotteryDraw/blob/main/demo.gif)
 
